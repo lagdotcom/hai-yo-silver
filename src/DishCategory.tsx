@@ -11,38 +11,37 @@ import {
 import { dishes, DishType, findJudge, recipeNames } from "./data";
 import styles from "./DishCategory.module.scss";
 
-function getResults(values: (string | undefined)[], type: DishType) {
-  const judges = values.map(findJudge);
-  return dishes
-    .filter((d) => d.type === type)
-    .map((d) => {
-      const scores = judges.map((j) => (j ? d[j.preference] : NaN));
-      const total = scores.reduce((p, c) => (isNaN(c) ? p : p + c), 0);
-
-      return {
-        dish: d.name,
-        total,
-        scores,
-        recipe: d.recipe,
-        seasoning: d.seasoning,
-      };
-    })
-    .sort((a, b) => {
-      if (a.total != b.total) return b.total - a.total;
-      return a.dish.localeCompare(b.dish);
-    });
-}
-
 interface Props {
   values: (string | undefined)[];
+  owned: number[];
   type: DishType;
 }
 
-export default function DishCategory({ values, type }: Props) {
-  const results = useMemo(() => getResults(values, type), [values, type]);
+export default function DishCategory({ values, owned, type }: Props) {
+  const results = useMemo(() => {
+    const judges = values.map(findJudge);
+    return dishes
+      .filter((d) => d.type === type && owned.includes(d.recipe))
+      .map((d) => {
+        const scores = judges.map((j) => (j ? d[j.preference] : NaN));
+        const total = scores.reduce((p, c) => (isNaN(c) ? p : p + c), 0);
+
+        return {
+          dish: d.name,
+          total,
+          scores,
+          recipe: d.recipe,
+          seasoning: d.seasoning,
+        };
+      })
+      .sort((a, b) => {
+        if (a.total != b.total) return b.total - a.total;
+        return a.dish.localeCompare(b.dish);
+      });
+  }, [values, owned, type]);
 
   return (
-    <Table className={styles.table}>
+    <Table className={`react-aria-Table ${styles.table}`}>
       <TableHeader>
         <Column>{type}</Column>
         <Column>Total Score</Column>

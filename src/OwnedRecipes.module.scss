@@ -1,0 +1,10 @@
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  label {
+    font-size: 0.9em;
+    width: 160px;
+  }
+}

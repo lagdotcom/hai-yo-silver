@@ -3,6 +3,8 @@ import { useCallback, useMemo, useState } from "react";
 import styles from "./App.module.scss";
 import DishCategory from "./DishCategory";
 import JudgePicker from "./JudgePicker";
+import OwnedRecipes from "./OwnedRecipes";
+import useLocalState from "./useLocalState";
 
 export default function App() {
   const [judgeValues, setJudgeValues] = useState<(string | undefined)[]>([
@@ -30,6 +32,8 @@ export default function App() {
     [judgeValues],
   );
 
+  const [owned, setOwned] = useLocalState<number[]>("ownedRecipes", []);
+
   return (
     <div className={styles.app}>
       <div className={styles.pickers}>
@@ -38,11 +42,12 @@ export default function App() {
         <JudgePicker values={judgeValues} index={2} onChange={onChangeJudge} />
         <JudgePicker values={judgeValues} index={3} onChange={onChangeJudge} />
       </div>
+      <OwnedRecipes owned={owned} setOwned={setOwned} />
       {hasAnyValues && (
         <>
-          <DishCategory values={judgeValues} type="Appetiser" />
-          <DishCategory values={judgeValues} type="Main" />
-          <DishCategory values={judgeValues} type="Dessert" />
+          <DishCategory values={judgeValues} owned={owned} type="Appetiser" />
+          <DishCategory values={judgeValues} owned={owned} type="Main" />
+          <DishCategory values={judgeValues} owned={owned} type="Dessert" />
         </>
       )}
     </div>
