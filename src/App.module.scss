@@ -1,0 +1,13 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.pickers {
+  flex: 0 0;
+  display: flex;
+  flex-direction: row;
+  column-gap: 1em;
+  justify-content: center;
+}
