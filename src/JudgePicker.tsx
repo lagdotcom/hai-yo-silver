@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   Button,
   ComboBox,
@@ -38,10 +38,14 @@ export default function JudgePicker({ index, values, onChange }: Props) {
   );
   const judge = useMemo(() => findJudge(value), [value]);
 
+  const [filter, setFilter] = useState("");
+
   return (
     <div className={styles.picker}>
       <ComboBox
-        items={items}
+        defaultItems={items}
+        inputValue={filter}
+        onInputChange={setFilter}
         onSelectionChange={(e) =>
           onChange(index, items.find((i) => i.id === e)?.name)
         }
