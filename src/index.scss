@@ -1,6 +1,22 @@
 :root {
   --bg: white;
   --fg: black;
+
+  --background-color: #eee;
+  --border-color: #bbb;
+  --border-color-pressed: #888;
+  --button-background-pressed: #880;
+  --button-background: #440;
+  --field-background: #ddd;
+  --field-text-color: var(--fg);
+  --focus-ring-color: #808;
+  --highlight-background: #808;
+  --highlight-background-pressed: #a0a;
+  --highlight-foreground: white;
+  --origin: none;
+  --overlay-background: var(--bg);
+  --text-color: var(--fg);
+  --trigger-width: 0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -10,19 +26,9 @@
 
     --background-color: #111;
     --border-color: #444;
-    --border-color-pressed: #888;
     --button-background-pressed: #880;
     --button-background: #440;
     --field-background: #222;
-    --field-text-color: white;
-    --focus-ring-color: #088;
-    --highlight-background: #808;
-    --highlight-background-pressed: #a0a;
-    --highlight-foreground: white;
-    --origin: none;
-    --overlay-background: black;
-    --text-color: white;
-    --trigger-width: 0;
   }
 }
 
